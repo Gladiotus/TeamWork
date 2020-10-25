@@ -1,0 +1,11 @@
+.Dashboard {
+	color: white;
+	padding: 40px;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+.Dashboard h2 {
+	margin-bottom: 20px;
+	font-weight: 400;
+}

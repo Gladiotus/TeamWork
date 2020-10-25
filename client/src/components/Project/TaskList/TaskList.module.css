@@ -1,0 +1,53 @@
+.TaskList {
+	width: 270px;
+	max-height: 100%;
+	background-color: #ebecf0;
+	padding: 8px;
+	border-radius: 3px;
+	margin-left: 8px;
+	margin-top: 8px;
+	box-shadow: 0 2px 5px rgba(9, 30, 66, 0.25);
+}
+.TaskList header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.TaskList header textarea {
+	background: none;
+	border: none;
+	resize: none;
+	font-size: 2em;
+	padding: 0.25rem 0.4rem;
+}
+.TaskList header span {
+	transition: all 0.15s;
+	border-radius: 3px;
+	padding: 0.3rem 0.05rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.TaskList header span:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.ItemContainer {
+	padding: 0 4px;
+	border-radius: 3px;
+}
+.NewItem {
+	display: flex;
+	flex-direction: row;
+	padding: 3px;
+	cursor: pointer;
+	transition: all 0.15s;
+	border-radius: 3px;
+}
+.NewItem:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.NewItem * {
+	margin-left: 5px;
+}

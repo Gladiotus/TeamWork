@@ -1,0 +1,19 @@
+.ProjectItem {
+	min-width: 250px;
+	height: 150px;
+	background: white;
+	margin: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 3px;
+	box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.4);
+	background: rgb(54, 47, 186);
+	background: linear-gradient(220deg, rgba(54, 47, 186, 1) 0%, rgba(8, 4, 91, 1) 100%);
+	color: white;
+	cursor: pointer;
+	transition: all 0.15s;
+}
+.ProjectItem:hover {
+	transform: translateY(10px);
+}

@@ -1,0 +1,12 @@
+.ProjectList {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	overflow-x: auto;
+	overflow-y: hidden;
+	position: relative;
+}
+.ProjectList::after {
+	content: "";
+	padding-right: 0.02px;
+}

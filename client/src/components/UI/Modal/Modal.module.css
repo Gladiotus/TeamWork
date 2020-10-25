@@ -1,0 +1,55 @@
+.Modal {
+	height: 800px;
+	width: 600px;
+	background: #ebecf0;
+	position: absolute;
+	z-index: 999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	padding: 20px;
+}
+.Name {
+	font-size: 1.75em;
+	font-weight: 600;
+	overflow: hidden;
+}
+.Desc {
+	width: 100%;
+	min-height: 50%;
+	font-size: 1.5em;
+	font-weight: 400;
+}
+.Modal textarea {
+	border: none;
+	outline: none;
+	resize: none;
+	background-color: #ebecf0;
+	border: 2px solid transparent;
+	border-radius: 3px;
+	margin-bottom: 2rem;
+}
+.Modal textarea:focus {
+	background-color: #fff;
+	border: 2px solid rgb(54, 47, 186);
+}
+.Modal button {
+	background: #5aac44;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	font-size: 1.5em;
+	width: 30%;
+	padding: 10px;
+	align-self: center;
+	border-radius: 10px;
+	transition: background 0.2s;
+	color: white;
+}
+.Modal button:hover {
+	background: #356428;
+}

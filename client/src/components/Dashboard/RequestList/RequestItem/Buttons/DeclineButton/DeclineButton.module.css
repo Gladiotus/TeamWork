@@ -1,0 +1,16 @@
+.DeclineButton {
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+	background-color: rgb(150, 28, 28);
+	margin-left: 10px;
+	cursor: pointer;
+	transition: all 0.15s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+.DeclineButton:hover {
+	background-color: rgba(121, 7, 7, 0.75);
+}

@@ -1,0 +1,20 @@
+.EmployeeTeams input {
+	padding: 0.5rem 0.75rem;
+	box-shadow: 0 2px 9px rgba(9, 30, 66, 0.5);
+	width: 300px;
+	margin-bottom: 1rem;
+	font-size: 1.2rem;
+	border: 5px solid transparent;
+	outline: none;
+	background: #ebecf0;
+	border-radius: 5px;
+	transition: all 0.3s;
+}
+.EmployeeTeams input:focus {
+	border: 5px solid #5aac44;
+	background: #fff;
+}
+.TeamsContainer {
+	display: flex;
+	flex-wrap: wrap;
+}

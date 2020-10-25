@@ -1,0 +1,55 @@
+.NewProject {
+	min-width: 250px;
+	height: 150px;
+	background: white;
+	margin: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 3px;
+	box-shadow: 1px 1px 8px 3px rgba(0, 0, 0, 0.4);
+	background: rgb(54, 47, 186);
+	background: linear-gradient(220deg, rgba(54, 47, 186, 1) 0%, rgba(8, 4, 91, 1) 100%);
+	color: white;
+	cursor: pointer;
+	transition: all 0.15s;
+}
+.NewProject:hover {
+	transform: translateY(10px);
+}
+.AddForm {
+	display: flex;
+	flex-direction: column;
+}
+.AddForm input {
+	padding: 0.4rem 0.5rem;
+	box-shadow: 0 2px 9px rgba(9, 30, 66, 0.5);
+	width: 200px;
+	margin-bottom: 1rem;
+	font-size: 1rem;
+	border: 5px solid transparent;
+	outline: none;
+	background: #ebecf0;
+	border-radius: 5px;
+	transition: all 0.3s;
+}
+.AddForm input:focus {
+	border: 5px solid #5aac44;
+	background: #fff;
+}
+.AddForm button {
+	background: #5aac44;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	font-size: 1rem;
+	width: 70px;
+	padding: 10px;
+	align-self: center;
+	border-radius: 10px;
+	transition: background 0.2s;
+	color: white;
+}
+.AddForm button:hover {
+	background: #356428;
+}

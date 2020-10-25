@@ -1,0 +1,7 @@
+.RequestList {
+	margin: 1vw;
+	display: flex;
+	flex-wrap: wrap;
+	max-height: 450px;
+	overflow-y: auto;
+}
