@@ -6,6 +6,7 @@ const Team = require("../../DB/models/Team");
 
 router.post("/new", authUser, authAdmin, async (req, res) => {
 	const newProject = new Project({ name: req.body.name, data: req.body.data });
+	newProject.lastUpdated = Date.now();
 	newProject.save();
 	const team = await Team.findById(req.body.teamID);
 	team.projects.push(newProject._id);
@@ -15,7 +16,12 @@ router.post("/new", authUser, authAdmin, async (req, res) => {
 
 router.post("/get", authUser, async (req, res) => {
 	const project = await Project.findById(req.body.projectID);
-	res.json(project.data);
+	res.json({ data: project.data, lastUpdated: project.lastUpdated });
+});
+
+router.post("/lastupdated", authUser, async (req, res) => {
+	const project = await Project.findById(req.body.projectID);
+	res.json(project.lastUpdated);
 });
 
 router.post("/save", authUser, async (req, res) => {
@@ -52,10 +58,10 @@ router.post("/save", authUser, async (req, res) => {
 	// 	}
 	// });
 	project.data = req.body.project.data;
+	project.lastUpdated = Date.now();
 	project.save((err) => {
 		if (err) console.log(err);
 		console.log("Project Saved");
-		console.log(Array.from(project.data));
 		res.json({ msg: "Project Saved" });
 	});
 });

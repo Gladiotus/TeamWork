@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const projectSchema = new Schema({
 	name: { type: String, required: true },
 	data: { type: [Object], required: true },
+	lastUpdated: { type: Date, required: true },
 });
 
 const Project = mongoose.model("Project", projectSchema);

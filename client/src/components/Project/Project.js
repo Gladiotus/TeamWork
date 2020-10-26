@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import uniqid from "uniqid";
 import classes from "./Project.module.css";
@@ -27,9 +27,29 @@ const Project = (props) => {
 	});
 	const [displayModal, setDisplayModal] = useState({ display: null, item: null, listID: null });
 	const [loading, setLoading] = useState(false);
+	const projectLists = useRef(lists);
 	useEffect(() => {
 		getProjectData();
+		getLastUpdated();
+		const interval = setInterval(() => getLastUpdated(), 10000);
+		return () => {
+			clearInterval(interval);
+		};
 	}, []);
+
+	const getLastUpdated = async () => {
+		const currentLastUpdated = projectLists.current.lastUpdated;
+		const lastUpdated = await axios.post(
+			"/projects/lastupdated",
+			{ projectID: props.location.state.project._id },
+			{ headers: { "x-auth-token": localStorage.getItem("auth-token") } }
+		);
+
+		if (lastUpdated.data > currentLastUpdated) {
+			alert("refresh, data:" + JSON.stringify(projectLists.current));
+		}
+		console.log("checked for updates");
+	};
 	const getProjectData = async () => {
 		setLoading(true);
 		const token = localStorage.getItem("auth-token");
@@ -41,7 +61,8 @@ const Project = (props) => {
 		setLists({
 			_id: props.location.state.project._id,
 			name: props.location.state.project.name,
-			data: projectData.data,
+			data: projectData.data.data,
+			lastUpdated: projectData.data.lastUpdated,
 		});
 		setLoading(false);
 	};
@@ -76,13 +97,14 @@ const Project = (props) => {
 	const saveProject = async () => {
 		setLoading(true);
 		const project = { ...lists };
-		console.log(project);
+		project.lastUpdated = Date.now();
 		await axios.post(
 			"/projects/save",
 			{ project },
 			{ headers: { "x-auth-token": localStorage.getItem("auth-token") } }
 		);
 		setLoading(false);
+		setLists(project);
 	};
 	const renderLists = lists.data.map((list) => (
 		<TaskList
@@ -93,6 +115,7 @@ const Project = (props) => {
 			list={list}
 		/>
 	));
+	projectLists.current = lists;
 	return (
 		<div className={classes.Project}>
 			{loading ? (
