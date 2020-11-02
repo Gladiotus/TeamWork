@@ -6,6 +6,7 @@ import { BiPlus } from "react-icons/bi";
 import { RiRefreshLine } from "react-icons/ri";
 import TaskList from "./TaskList/TaskList";
 import Modal from "../UI/Modal/Modal";
+import DataUpdateModal from "../../SaveData/DataUpdateModal";
 import Spinner from "../UI/Spinner/Spinner";
 import Backdrop from "../UI/Backdrop/Backdrop";
 
@@ -27,11 +28,14 @@ const Project = (props) => {
 	});
 	const [displayModal, setDisplayModal] = useState({ display: null, item: null, listID: null });
 	const [loading, setLoading] = useState(false);
+	const [preview, setPreview] = useState(false);
+	const [updated, setUpdated] = useState(false);
 	const projectLists = useRef(lists);
+	let interval;
 	useEffect(() => {
 		getProjectData();
 		getLastUpdated();
-		const interval = setInterval(() => getLastUpdated(), 10000);
+		interval = setInterval(() => getLastUpdated(), 10000);
 		return () => {
 			clearInterval(interval);
 		};
@@ -46,9 +50,14 @@ const Project = (props) => {
 		);
 
 		if (lastUpdated.data > currentLastUpdated) {
-			alert("refresh, data:" + JSON.stringify(projectLists.current));
+			clearInterval(interval);
+			setPreview(true);
+			setUpdated(true);
 		}
 		console.log("checked for updates");
+	};
+	const displayUpdateModalHandler = () => {
+		setUpdated(false);
 	};
 	const getProjectData = async () => {
 		setLoading(true);
@@ -106,6 +115,7 @@ const Project = (props) => {
 		setLoading(false);
 		setLists(project);
 	};
+
 	const renderLists = lists.data.map((list) => (
 		<TaskList
 			overlay={displayModalHandler}
@@ -122,20 +132,33 @@ const Project = (props) => {
 				<Spinner />
 			) : (
 				<>
+					{updated ? (
+						<>
+							<DataUpdateModal content={{ ...lists }} /> <Backdrop click={displayUpdateModalHandler} />
+						</>
+					) : null}
 					{displayModal.display ? (
 						<>
 							<Modal modalUpdate={modalItemUpdate} item={displayModal.item} /> <Backdrop click={displayModalHandler} />
 						</>
 					) : null}
 					{renderLists}
-					<RiRefreshLine onClick={getProjectData} size={48} className={classes.Refresh} />
-					<div className={classes.NewList} onClick={addListHandler}>
-						<BiPlus size={18} />
-						Add new list
-					</div>
-					<button onClick={saveProject} className={classes.SaveButton}>
-						Save
-					</button>
+					{preview ? (
+						<div className={classes.NewList} onClick={() => setUpdated(true)}>
+							See Options
+						</div>
+					) : (
+						<>
+							<div className={classes.NewList} onClick={addListHandler}>
+								<BiPlus size={18} />
+								Add new list
+							</div>
+							<RiRefreshLine onClick={getProjectData} size={48} className={classes.Refresh} />
+							<button onClick={saveProject} className={classes.SaveButton}>
+								Save
+							</button>
+						</>
+					)}
 				</>
 			)}
 		</div>

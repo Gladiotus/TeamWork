@@ -53,3 +53,15 @@
 .Modal button:hover {
 	background: #356428;
 }
+.ButtonArea {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 100%;
+	align-items: center;
+	font-size: 0.7rem;
+	margin-top: 3rem;
+}
+.Modal p {
+	font-size: 1.25rem;
+}
