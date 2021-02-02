@@ -106,6 +106,7 @@ const Dashboard = () => {
 				headers: { "x-auth-token": localStorage.getItem("auth-token") },
 			}
 		);
+		console.log("redirect");
 		history.push("/"); // Replace later with http request for teams data
 	};
 	const addProject = async (projectName, loadingProject) => {

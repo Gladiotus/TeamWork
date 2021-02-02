@@ -23,7 +23,9 @@ router.get("/employee", authUser, async (req, res) => {
 });
 router.post("/newteam", authUser, authAdmin, async (req, res) => {
 	const newTeam = new Team(req.body);
+	console.log("New team");
 	newTeam.save();
+	res.json({ msg: "New Team" });
 });
 router.get("/all", authUser, async (req, res) => {
 	const allTeams = await Team.find({});
