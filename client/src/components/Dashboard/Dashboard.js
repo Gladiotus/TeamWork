@@ -17,7 +17,7 @@ const Dashboard = () => {
 	const configDisplay = () => {
 		let displayTemp;
 		if (userContext.loggedIn.role === "admin") {
-			if (!teamData._id) {
+			if (!teamData?._id) {
 				displayTemp = <AdminTeams newTeam={setUpTeam} />;
 			} else {
 				displayTemp = (
@@ -97,7 +97,7 @@ const Dashboard = () => {
 			isMounted = false;
 		};
 		// eslint-disable-next-line
-	}, [teamData._id]);
+	}, [teamData?._id]);
 	const setUpTeam = async (teamName) => {
 		await axios.post(
 			"/teams/newteam",
