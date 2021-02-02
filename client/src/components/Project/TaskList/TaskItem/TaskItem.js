@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classes from "./TaskItem.module.css";
 import { BsFillTrashFill } from "react-icons/bs";
+import { Draggable } from "react-beautiful-dnd";
 
 const TaskItem = (props) => {
 	const [content, setContent] = useState(props.task.content);
@@ -44,12 +45,22 @@ const TaskItem = (props) => {
 	);
 
 	return (
-		<div className={classes.TaskItem} onClick={itemClickedHandler}>
-			<p>{display}</p>
-			<span className={classes.Delete} onClick={itemClickedHandler}>
-				<BsFillTrashFill />
-			</span>
-		</div>
+		<Draggable draggableId={props.task.id} index={props.index} type="item">
+			{(provided) => (
+				<div
+					{...provided.draggableProps}
+					{...provided.dragHandleProps}
+					ref={provided.innerRef}
+					className={classes.TaskItem}
+					onClick={itemClickedHandler}
+				>
+					<p>{display}</p>
+					<span className={classes.Delete} onClick={itemClickedHandler}>
+						<BsFillTrashFill />
+					</span>
+				</div>
+			)}
+		</Draggable>
 	);
 };
 

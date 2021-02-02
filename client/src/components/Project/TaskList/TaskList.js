@@ -3,6 +3,7 @@ import classes from "./TaskList.module.css";
 import TaskItem from "./TaskItem/TaskItem";
 import { BsFillTrashFill } from "react-icons/bs";
 import { BiPlus } from "react-icons/bi";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import uniqid from "uniqid";
 
 const TaskList = (props) => {
@@ -37,7 +38,7 @@ const TaskList = (props) => {
 		props.update({ id: props.list.id, name: e.target.value, content: tasks });
 	};
 
-	const items = tasks.map((task) => (
+	const items = tasks.map((task, i) => (
 		<TaskItem
 			listID={props.list.id}
 			overlay={props.overlay}
@@ -45,30 +46,48 @@ const TaskList = (props) => {
 			delete={deleteItemHandler}
 			task={task}
 			key={task.id}
+			index={i}
 		/>
 	));
 
 	return (
-		<div className={classes.TaskList}>
-			<header>
-				<textarea
-					rows="1"
-					onKeyPress={pressedEnterHandler}
-					onBlur={listNameChangeHandler}
-					placeholder={"List Name"}
-					value={listName || ""}
-					onChange={(e) => setListName(e.target.value)}
-				></textarea>
-				<span onClick={() => props.delete(props.list.id)}>
-					<BsFillTrashFill size={20} />
-				</span>
-			</header>
-			<div className={classes.ItemContainer}>{items}</div>
-			<div className={classes.NewItem} onClick={addItemHandler}>
-				<BiPlus size={20} />
-				<h4>Add New Item</h4>
-			</div>
-		</div>
+		<Draggable draggableId={props.list.id} index={props.index} type="list">
+			{(provided) => (
+				<div
+					{...provided.dragHandleProps}
+					{...provided.draggableProps}
+					ref={provided.innerRef}
+					className={classes.TaskList}
+				>
+					<header>
+						<textarea
+							rows="1"
+							onKeyPress={pressedEnterHandler}
+							onBlur={listNameChangeHandler}
+							placeholder={"List Name"}
+							value={listName || ""}
+							onChange={(e) => setListName(e.target.value)}
+						></textarea>
+						<span onClick={() => props.delete(props.list.id)}>
+							<BsFillTrashFill size={20} />
+						</span>
+					</header>
+					<Droppable droppableId={props.list.id} type="item">
+						{(provided) => (
+							<div ref={provided.innerRef} {...provided.droppableProps} className={classes.ItemContainer}>
+								{items}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+
+					<div className={classes.NewItem} onClick={addItemHandler}>
+						<BiPlus size={20} />
+						<h4>Add New Item</h4>
+					</div>
+				</div>
+			)}
+		</Draggable>
 	);
 };
 

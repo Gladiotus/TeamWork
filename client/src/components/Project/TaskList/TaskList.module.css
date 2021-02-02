@@ -36,6 +36,7 @@
 .ItemContainer {
 	padding: 0 4px;
 	border-radius: 3px;
+	min-height: 100px;
 }
 .NewItem {
 	display: flex;

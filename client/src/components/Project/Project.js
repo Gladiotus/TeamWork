@@ -9,6 +9,7 @@ import Modal from "../UI/Modal/Modal";
 import DataUpdateModal from "../../SaveData/DataUpdateModal";
 import Spinner from "../UI/Spinner/Spinner";
 import Backdrop from "../UI/Backdrop/Backdrop";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const Project = (props) => {
 	const [lists, setLists] = useState({
@@ -116,52 +117,85 @@ const Project = (props) => {
 		setLists(project);
 	};
 
-	const renderLists = lists.data.map((list) => (
+	const renderLists = lists.data.map((list, i) => (
 		<TaskList
 			overlay={displayModalHandler}
 			update={updateListHandler}
 			delete={deleteListHandler}
 			key={list.id}
 			list={list}
+			index={i}
 		/>
 	));
+	const dragEnd = (result) => {
+		const { destination, source, draggableId, type } = result;
+		if (!destination) {
+			return;
+		}
+		if (destination.droppableId === source.droppableId && destination.index === source.index) {
+			return;
+		}
+		const curLists = { ...lists };
+		if (type === "list") {
+			const col = curLists.data.find((item) => item.id === draggableId);
+			curLists.data.splice(source.index, 1);
+			curLists.data.splice(destination.index, 0, col);
+			setLists(curLists);
+		}
+		if (type === "item") {
+			const fromCol = curLists.data.find((item) => item.id === source.droppableId);
+			const toCol = curLists.data.find((item) => item.id === destination.droppableId);
+			const item = fromCol.content.find((item) => item.id === draggableId);
+			fromCol.content.splice(source.index, 1);
+			toCol.content.splice(destination.index, 0, item);
+			setLists(curLists);
+		}
+	};
 	projectLists.current = lists;
 	return (
-		<div className={classes.Project}>
-			{loading ? (
-				<Spinner />
-			) : (
-				<>
-					{updated ? (
-						<>
-							<DataUpdateModal content={{ ...lists }} /> <Backdrop click={displayUpdateModalHandler} />
-						</>
-					) : null}
-					{displayModal.display ? (
-						<>
-							<Modal modalUpdate={modalItemUpdate} item={displayModal.item} /> <Backdrop click={displayModalHandler} />
-						</>
-					) : null}
-					{renderLists}
-					{preview ? (
-						<div className={classes.NewList} onClick={() => setUpdated(true)}>
-							See Options
-						</div>
-					) : (
-						<>
-							<div className={classes.NewList} onClick={addListHandler}>
-								<BiPlus size={18} />
-								Add new list
-							</div>
-							<RiRefreshLine onClick={getProjectData} size={48} className={classes.Refresh} />
-							<button onClick={saveProject} className={classes.SaveButton}>
-								Save
-							</button>
-						</>
-					)}
-				</>
-			)}
-		</div>
+		<DragDropContext onDragEnd={dragEnd}>
+			<Droppable droppableId={"project"} direction="horizontal" type="list">
+				{(provided) => (
+					<div ref={provided.innerRef} {...provided.droppableProps} className={classes.Project}>
+						{loading ? (
+							<Spinner />
+						) : (
+							<>
+								{updated ? (
+									<>
+										<DataUpdateModal content={{ ...lists }} /> <Backdrop click={displayUpdateModalHandler} />
+									</>
+								) : null}
+								{displayModal.display ? (
+									<>
+										<Modal modalUpdate={modalItemUpdate} item={displayModal.item} />{" "}
+										<Backdrop click={displayModalHandler} />
+									</>
+								) : null}
+								{renderLists}
+								{preview ? (
+									<div className={classes.NewList} onClick={() => setUpdated(true)}>
+										See Options
+									</div>
+								) : (
+									<>
+										<div className={classes.NewList} onClick={addListHandler}>
+											<BiPlus size={18} />
+											Add new list
+										</div>
+										<RiRefreshLine onClick={getProjectData} size={48} className={classes.Refresh} />
+										<button onClick={saveProject} className={classes.SaveButton}>
+											Save
+										</button>
+									</>
+								)}
+							</>
+						)}
+						{provided.placeholder}
+					</div>
+				)}
+			</Droppable>
+		</DragDropContext>
 	);
 };
 
