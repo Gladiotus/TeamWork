@@ -11,12 +11,13 @@ require("dotenv").config();
 connectDB();
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "client", "build")));
 app.use("/users", usersRouter);
 app.use("/teams", teamsRouter);
 app.use("/projects", projectsRouter);
 
 app.get("/*", (req, res) => {
-	res.sendFile(path.join(__dirname, "client", "public", "index.html"));
+	res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(port, () => {
