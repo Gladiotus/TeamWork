@@ -17,6 +17,7 @@
 	font-size: 1.75em;
 	font-weight: 600;
 	overflow: hidden;
+	min-height: 55px;
 }
 .Desc {
 	width: 100%;
@@ -69,5 +70,6 @@
 	.Modal {
 		height: 80%;
 		width: 80%;
+		overflow: scroll;
 	}
 }
