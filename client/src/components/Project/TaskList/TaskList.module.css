@@ -1,6 +1,5 @@
 .TaskList {
 	width: 270px;
-	max-height: 100%;
 	background-color: #ebecf0;
 	padding: 8px;
 	border-radius: 3px;
@@ -37,6 +36,8 @@
 	padding: 0 4px;
 	border-radius: 3px;
 	min-height: 100px;
+	max-height: 500px;
+	overflow-y: auto;
 }
 .NewItem {
 	display: flex;
@@ -51,4 +52,9 @@
 }
 .NewItem * {
 	margin-left: 5px;
+}
+@media screen and (max-width: 600px) {
+	.ItemContainer {
+		max-height: 370px;
+	}
 }
