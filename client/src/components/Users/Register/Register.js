@@ -22,26 +22,24 @@ const Register = () => {
 	};
 	return (
 		<div className={classes.Register}>
-			<div className={classes.FormContainer}>
-				<form onSubmit={formSubmit}>
-					<h1>Register</h1>
-					<input name="name" type="text" placeholder="Enter Name..." />
-					<input name="email" type="email" placeholder="Enter Email..." />
-					<input name="password" type="password" placeholder="Enter Password..." />
-					<input name="confirmPassword" type="password" placeholder="Enter Confirm Password..." />
-					<div className={classes.RadioContainer}>
-						<label>
-							<input type="radio" name="role" value="admin" />
-							Admin
-						</label>
-						<label>
-							<input type="radio" name="role" value="employee" />
-							Employee
-						</label>
-					</div>
-					<button>Submit</button>
-				</form>
-			</div>
+			<form onSubmit={formSubmit}>
+				<h1>Register</h1>
+				<input name="name" type="text" placeholder="Enter Name..." />
+				<input name="email" type="email" placeholder="Enter Email..." />
+				<input name="password" type="password" placeholder="Enter Password..." />
+				<input name="confirmPassword" type="password" placeholder="Enter Confirm Password..." />
+				<div className={classes.RadioContainer}>
+					<label>
+						<input type="radio" name="role" value="admin" />
+						Admin
+					</label>
+					<label>
+						<input type="radio" name="role" value="employee" />
+						Employee
+					</label>
+				</div>
+				<button>Submit</button>
+			</form>
 		</div>
 	);
 };
