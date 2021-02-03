@@ -1,4 +1,6 @@
 # TeamWork
 Trello Clone
 
-Work In Progress
+A React based Full Stack Trello clone, with a fully functioning backend and DB.
+
+Hosted App: https://team-work-react.herokuapp.com/
