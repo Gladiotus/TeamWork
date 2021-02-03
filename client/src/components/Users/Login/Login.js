@@ -23,8 +23,8 @@ const Login = () => {
 	return (
 		<div className={classes.Login}>
 			<div className={classes.FormContainer}>
-				<h1>Login</h1>
 				<form onSubmit={formSubmit}>
+					<h1>Login</h1>
 					<input name="email" type="email" placeholder="Enter Email..." />
 					<input name="password" type="password" placeholder="Enter Password..." />
 					<button>Submit</button>
