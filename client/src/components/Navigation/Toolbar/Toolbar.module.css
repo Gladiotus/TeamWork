@@ -5,7 +5,8 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	position: relative;
+	position: absolute;
+	top: 0;
 }
 
 .Toolbar nav {
